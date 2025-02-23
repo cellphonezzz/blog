@@ -35,9 +35,10 @@
                                 <p>Пользователи</p>
                             </div>
                             <div class="icon">
-                                <i class="ion nav-icon fa-solid fa-user"></i>
+                                <i class="ion nav-icon fa-regular fa-user"></i>
                             </div>
-                            <a href="{{route('admin.user.index')}}" class="small-box-footer">Подробнее  <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{route('admin.user.index')}}" class="small-box-footer">Подробнее <i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -50,9 +51,10 @@
                                 <p>Посты</p>
                             </div>
                             <div class="icon">
-                                <i class="ion nav-icon fa-solid fa-message"></i>
+                                <i class="ion nav-icon fa-regular fa-message"></i>
                             </div>
-                            <a href="{{route('admin.post.index')}}" class="small-box-footer">Подробнее  <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{route('admin.post.index')}}" class="small-box-footer">Подробнее <i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -66,7 +68,8 @@
                             <div class="icon">
                                 <i class="ion nav-icon fa-solid fa-layer-group"></i>
                             </div>
-                            <a href="{{route('admin.category.index')}}" class="small-box-footer">Подробнее  <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{route('admin.category.index')}}" class="small-box-footer">Подробнее <i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -81,7 +84,8 @@
                             <div class="icon">
                                 <i class="ion nav-icon fa-solid fa-tag"></i>
                             </div>
-                            <a href="{{route('admin.tag.index')}}" class="small-box-footer">Подробнее  <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{route('admin.tag.index')}}" class="small-box-footer">Подробнее <i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -91,6 +95,5 @@
             <!-- /.card -->
         </section>
     </div>
-
 
 @endsection

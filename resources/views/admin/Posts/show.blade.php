@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Админ панель</h1>
+                        <h1 class="m-0">Просмотр поста</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -35,7 +35,7 @@
                     <div class="card w-25">
 
                         <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0" >
+                        <div class="card-body table-responsive p-0">
                             <table class="table table-head-fixed text-nowrap">
 
 
@@ -48,43 +48,51 @@
                                 </tr>
                                 </thead>
                                 <tbody align="center">
-                                    <tr>
-                                        <td>Название</td>
-                                        <td>{{$post->title}}</td>
-                                    </tr>
+                                <tr>
+                                    <td>Название</td>
+                                    <td>{{$post->title}}</td>
+                                </tr>
 
-                                    <tr>
-                                        <td>Описание</td>
-                                        <td>{{$post->content}}</td>
-                                    </tr>
+                                <tr>
+
+                                    <td>Контент</td>
+                                    <td>{!! $post->content !!}</td>
+                                </tr>
 
 
-                                    <td><a href="{{route('admin.post.edit', $post->id)}}"><i class="fa-solid fa-pen"></i></a> </td>
-                                    <td>
+                                <td><a href="{{route('admin.post.edit', $post->id)}}"><i
+                                            class="fa-solid fa-pen"></i></a></td>
+                                <td>
 
-                                        <form action="{{ route('admin.post.delete', $post->id) }}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" value="Delete" class="btn-outline-primary border-0"><i class="fa-solid fa-trash"></i></button>
-                                        </form>
-                                    </td>
+                                    <form action="{{ route('admin.post.delete', $post->id) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" value="Delete" class="btn-outline-primary border-0 bg-transparent text-danger"><i
+                                                class="fa-solid fa-trash"></i></button>
+                                    </form>
+                                </td>
 
                                 </tbody>
                             </table>
+
                         </div>
                         <!-- /.card-body -->
                     </div>
 
+
+
                     <!-- ./col -->
+                </div>
+
+                <div>
+                    <img src="{{ url('storage/' . $post->image) }}" alt="image">
                 </div>
 
             </div>
             <!-- /.card -->
 
-
-
+{{--            {{ Storage::url($post->image) }}--}}
         </section>
     </div>
-
 
 @endsection

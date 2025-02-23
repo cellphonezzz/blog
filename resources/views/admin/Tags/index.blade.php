@@ -41,9 +41,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Тэг</th>
-                                    <th></th>
-                                    <th>Действия</th>
-                                    <th></th>
+                                    <th colspan="3">Действия</th>
 
 
                                 </tr>
@@ -60,7 +58,7 @@
                                         <form action="{{ route('admin.tag.delete', $tag->id) }}" method="post">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit" value="Delete" class="btn-outline-primary border-0"><i class="fa-solid fa-trash"></i></button>
+                                            <button type="submit" value="Delete" class="btn-outline-primary border-0 bg-transparent text-danger"><i class="fa-solid fa-trash"></i></button>
                                         </form>
                                         </td>
 

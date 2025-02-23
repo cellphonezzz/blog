@@ -3,22 +3,19 @@
 namespace App\Http\Controllers\Admin\Posts;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Post\StoreRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 
-class StoreController extends Controller
+class StoreController extends BaseController
 {
-    public function __invoke()
+    public function __invoke(StoreRequest $request)
     {
-        $data = request()->validate([
-            'title' => 'string',
-            'content' => 'string',
-            'image' => 'string',
-//            'category_id' => 'int',
+        $data = $request->validated();
+        $this->service->store($data);
 
-        ]);
-
-        Post::create($data);
         return redirect()->route('admin.post.index');
+
     }
 }

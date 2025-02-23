@@ -4,98 +4,107 @@
     <main class="blog-post">
         <div class="container">
             <h1 class="edica-page-title" data-aos="fade-up">{{$post->title}}</h1>
-            <p class="edica-blog-post-meta" data-aos="fade-up" data-aos-delay="200">Written by Richard Searls• February 1, 2019• 6:31 pm• Featured • 4 Comments</p>
+            <p class="edica-blog-post-meta" data-aos="fade-up" data-aos-delay="200">
+                • {{ $date->translatedFormat('F') }} {{ $date->day }}, {{ $date->year }} • {{$date->format('H:i')}}
+                • {{$post->comments->count() }} {{ ($post->comments->count() > 4 || $post->comments->count() == 0) ? 'комментариев' : 'комментария' }}
+                • </p>
             <section class="blog-post-featured-img" data-aos="fade-up" data-aos-delay="300">
-                <img src="assets/images/blog-post-featured-img.png" alt="featured image" class="w-100">
+                <img src="{{ url('storage/' . $post->image) }}" alt="featured image" class="w-100">
             </section>
             <section class="post-content">
                 <div class="row">
                     <div class="col-lg-9 mx-auto" data-aos="fade-up">
-                        <p>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out printed graphic or web designs. The passage is at attributed to an unknown typesetters in 1the 5th century who is thought scrambled with all parts of Cicero’s De. Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out printed graphic or web designs</p>
-                        <p>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out printed graphic or web designs. The passage is at attributed to an unknown typesetters in 1the 5th century who is thought scrambled with all parts of Cicero’s De. Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out printed graphic or web designs</p>
+                        <p>{!! $post->content !!}</p>
                     </div>
                 </div>
-                <div class="row mb-5">
-                    <div class="col-md-4 mb-3" data-aos="fade-right">
-                        <img src="assets/images/blog_post_1.jpg" alt="blog post" class="img-fluid">
-                    </div>
-                    <div class="col-md-4 mb-3" data-aos="fade-up">
-                        <img src="assets/images/blog_post_2.jpg" alt="blog post" class="img-fluid">
-                    </div>
-                    <div class="col-md-4 mb-3" data-aos="fade-left">
-                        <img src="assets/images/blog_post_3.jpg" alt="blog post" class="img-fluid">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9 mx-auto">
-                        <p data-aos="fade-up"><a href="#">Lorem ipsum, or lipsum as it is sometimes known,</a> is dummy text used in laying out printed graphic or web designs. The passage is at attributed to an unknown typesetters in 1the 5th century who is thought scrambled with all parts of Cicero’s De. Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out printed graphic or web designs</p>
-                        <h2 class="mb-4" data-aos="fade-up">Blog single page</h2>
-                        <ul data-aos="fade-up">
-                            <li>What manner of thing was upon me I did not know, but that it was large and heavy and many-legged I could feel.</li>
-                            <li>My hands were at its throat before the fangs had a chance to bury themselves in my neck, and slowly</li>
-                            <li>I forced the hairy face from me and closed my fingers, vise-like, upon its windpipe.</li>
-                        </ul>
 
-                        <blockquote data-aos="fade-up">
-                            <p>You are safe here! I shouted above the sudden noise. She looked away from me downhill. The people were coming out of their houses, astonished.</p>
-                            <footer class="blockquote-footer">Oluchi Mazi</footer>
-                        </blockquote>
-                        <p>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out printed graphic or web designs. The passage is at attributed to an unknown typesetters in 1the 5th century who is thought scrambled with all parts of Cicero’s De. Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out printed graphic or web designs</p>
+
+                @auth()
+                    <div class="ml-2 mb-4">
+                        <form action="{{route('main.like.store', $post->id)}}" method="post">
+                            @csrf
+                            <span>{{$post->liked_users_count}}</span>
+                            <button type="submit" class=" border-0 bg-transparent">
+                                @if(auth()->user()->likedPosts->contains($post->id))
+                                    <i class="fa-solid fa-heart"></i>
+                                @else
+                                    <i class="fa-regular fa-heart"></i>
+                                @endif
+                            </button>
+                        </form>
                     </div>
-                </div>
-            </section>
-            <div class="row">
-                <div class="col-lg-9 mx-auto">
-                    <section class="related-posts">
-                        <h2 class="section-title mb-4" data-aos="fade-up">Related Posts</h2>
-                        <div class="row">
-                            <div class="col-md-4" data-aos="fade-right" data-aos-delay="100">
-                                <img src="assets/images/blog_post_related_1.png" alt="related post" class="post-thumbnail">
-                                <p class="post-category">Blog post</p>
-                                <h5 class="post-title">Front becomes an official Instagram</h5>
-                            </div>
-                            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                                <img src="assets/images/blog_post_related_2.png" alt="related post" class="post-thumbnail">
-                                <p class="post-category">Blog post</p>
-                                <h5 class="post-title">Front becomes an official Instagram</h5>
-                            </div>
-                            <div class="col-md-4" data-aos="fade-left" data-aos-delay="100">
-                                <img src="assets/images/blog_post_related_3.png" alt="related post" class="post-thumbnail">
-                                <p class="post-category">Blog post</p>
-                                <h5 class="post-title">Front becomes an official Instagram</h5>
-                            </div>
+                @endauth
+
+                @guest()
+
+                    <small>{{$post->liked_users_count}}</small>
+                    <i class="fa-regular fa-heart"></i>
+                @endguest
+
+                <section class="comment-list mb-5">
+                    <h2 class="section-title mb-5"> Комментарии ({{$post->comments->count()}})</h2>
+                    @foreach($post->comments as $comment)
+                        <div class="comment-text mb-3">
+                                <span class="username">
+                                    <div>
+                                       <b>
+                                        {{$comment->user->name}}
+                                       </b>
+                                    </div>
+                                    <span
+                                        class="text-muted float-right">{{$comment->dateAsCarbon->diffForHumans()}}</span>
+                                </span><!-- /.username -->
+                            {{$comment->message}}
                         </div>
-                    </section>
+                    @endforeach
+                </section>
+
+                @auth()
                     <section class="comment-section">
-                        <h2 class="section-title mb-5" data-aos="fade-up">Leave a Reply</h2>
-                        <form action="/" method="post">
+                        <h2 class="section-title mb-5" data-aos="fade-up">Написать комментарий</h2>
+                        <form action="{{ route('main.comment.store', $post->id) }}" method="POST">
+                            @csrf
                             <div class="row">
                                 <div class="form-group col-12" data-aos="fade-up">
                                     <label for="comment" class="sr-only">Comment</label>
-                                    <textarea name="comment" id="comment" class="form-control" placeholder="Comment" rows="10">Comment</textarea>
+                                    <textarea name="message" class="form-control" placeholder="Комментарий"
+                                              rows="10"></textarea>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-md-4" data-aos="fade-right">
-                                    <label for="name" class="sr-only">Name</label>
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Name*">
-                                </div>
-                                <div class="form-group col-md-4" data-aos="fade-up">
-                                    <label for="email" class="sr-only">Email</label>
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="Email*" required>
-                                </div>
-                                <div class="form-group col-md-4" data-aos="fade-left">
-                                    <label for="website" class="sr-only">Website</label>
-                                    <input type="url" name="website" id="website" class="form-control" placeholder="Website*">
-                                </div>
-                            </div>
+                            <input type="hidden" name="post_id" value="{{$post->id}}">
                             <div class="row">
                                 <div class="col-12" data-aos="fade-up">
-                                    <input type="submit" value="Send Message" class="btn btn-warning">
+                                    <input type="submit" value="Отправить" class="btn btn-primary">
                                 </div>
                             </div>
                         </form>
                     </section>
+                @endauth
+
+                @if($anotherPosts->count() > 0)
+            </section>
+            <div class="row mb-5">
+                <div class="col-lg-9 mx-auto">
+                    <section class="related-posts">
+                        <h2 class="section-title mb-4" data-aos="fade-up">Похожие посты</h2>
+                        <div class="row">
+
+                            @foreach($anotherPosts as $anotherPost)
+                                <div class="col-md-4" data-aos="fade-right" data-aos-delay="100">
+
+                                    <img src="{{ url('storage/' . $anotherPost->image) }}" alt="related post"
+                                         class="post-thumbnail">
+
+                                    <p class="post-category">{{$anotherPost->category->title}}</p>
+                                    <a href="{{ route('main.show', $anotherPost->id) }}">
+                                        <h5 class="post-title">{{$anotherPost->title}}</h5>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </section>
+                    @endif
+
                 </div>
             </div>
         </div>

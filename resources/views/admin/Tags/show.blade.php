@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Админ панель</h1>
+                        <h1 class="m-0">Просмотр тэга </h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -60,7 +60,7 @@
                                         <form action="{{ route('admin.tag.delete', $tag->id) }}" method="post">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit" value="Delete" class="btn-outline-primary border-0"><i class="fa-solid fa-trash"></i></button>
+                                            <button type="submit" value="Delete" class="btn-outline-primary border-0 bg-transparent text-danger"><i class="fa-solid fa-trash"></i></button>
                                         </form>
                                     </td>
 

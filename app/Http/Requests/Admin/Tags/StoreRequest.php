@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Post;
+namespace App\Http\Requests\Admin\Tags;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,9 +25,6 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'content' => 'required|string',
-            'image' => 'required|image',
-//           'category_id' => 'int',
         ];
     }
 }

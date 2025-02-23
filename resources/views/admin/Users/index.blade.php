@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Админ панель</h1>
+                        <h1 class="m-0">Пользователи</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -24,6 +24,9 @@
         <!-- Main content -->
         <section class="content">
 
+            <div>
+                <a href="{{route('admin.user.create')}}" class="btn btn-primary mb-3">Добавить пользователя</a>
+            </div>
 
             <div class="container-fluid ">
                 <!-- Small boxes (Stat box) -->
@@ -39,8 +42,7 @@
                                     <th>ID</th>
                                     <th>Имя</th>
                                     <th>Почта</th>
-                                    <th>Действие</th>
-
+                                    <th colspan="3">Действие</th>
 
 
                                 </tr>
@@ -51,11 +53,22 @@
                                         <td>{{$user->id}}</td>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
-                                        <td><a href="{{route('admin.user.show', $user->id)}}"><i class="fa-solid fa-eye"></i></a> </td>
+                                        <td><a href="{{route('admin.user.show', $user->id)}}"><i
+                                                    class="fa-solid fa-eye"></i></a></td>
+                                        <td><a href="{{route('admin.user.edit', $user->id)}}"><i
+                                                    class="fa-solid fa-pen"></i></a></td>
+                                        <td>
+                                            <form action="{{ route('admin.user.delete', $user->id) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" value="Delete"
+                                                        class="btn-outline-primary border-0 bg-transparent text-danger"><i
+                                                        class="fa-solid fa-trash"></i></button>
+                                            </form>
+                                        </td>
 
                                     </tr>
                                 @endforeach
-
 
 
                                 </tbody>
@@ -76,6 +89,5 @@
             <!-- /.card -->
         </section>
     </div>
-
 
 @endsection

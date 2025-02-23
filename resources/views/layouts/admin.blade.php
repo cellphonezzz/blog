@@ -6,7 +6,10 @@
     <title>Админ панель</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Ionicons -->
@@ -15,6 +18,9 @@
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
+
+
+    <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
     <!-- Daterange picker -->
@@ -26,7 +32,30 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
+        <img class="animation__shake" src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60"
+             width="60">
+    </div>
+
+    <div class="col-12">
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light d-flex justify-content-between">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <input type="submit" class="btn btn-outline-primary" value="Выйти">
+                </form>
+            </li>
+        </ul>
+
+    </nav>
+
     </div>
 
 
@@ -34,7 +63,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{route('admin.index')}}" class="brand-link">
-            <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
+                 class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">AdminLTE 3</span>
         </a>
 
@@ -45,9 +75,28 @@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
+
+                    <li class="nav-item">
+                        <a href="{{route('main.index')}}" class="nav-link">
+                            <i class="nav-icon fa-solid fa-house"></i>
+                            <p>
+                                Главная
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{route('personal.index')}}" class="nav-link">
+                            <i class="nav-icon fa-solid fa-landmark"></i>
+                            <p>
+                                Личный кабинет
+                            </p>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a href="{{route('admin.user.index')}}" class="nav-link">
@@ -86,9 +135,6 @@
                     </li>
 
 
-
-
-
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -112,9 +158,9 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src=" {{asset('plugins/jquery/jquery.min.js')}} "></script>
+<script src=" {{asset('../../plugins/jquery/jquery.min.js')}} "></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}} "></script>
+<script src="{{asset('../../plugins/jquery-ui/jquery-ui.min.js')}} "></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
@@ -128,6 +174,42 @@
 <!-- AdminLTE App -->
 <script src="{{asset('dist/js/adminlte.js')}}"></script>
 
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+
+<script src="{{asset('plugins/summernote/summernote-bs4.min.js')}}"></script>
+
+<script src="{{asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+
+
+<script>
+    $('#summernote').summernote({
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ]
+    });
+
+    $(function () {
+        bsCustomFileInput.init();
+    });
+
+
+        $('.select2').select2()
+
+</script>
+
+<style>
+        .custom-file-input:lang(en)~.custom-file-label::after {
+            content: "...";
+        }
+</style>
 <script src="https://kit.fontawesome.com/b835f38b9d.js" crossorigin="anonymous"></script>
 <!-- AdminLTE for demo purposes -->
 </body>

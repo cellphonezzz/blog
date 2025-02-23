@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edica :: Home</title>
+    <title>Блог</title>
+    <script src="https://kit.fontawesome.com/14246d48da.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendors/flag-icon-css/css/flag-icon.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/font-awesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendors/aos/aos.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     <script src="{{asset('assets/vendors/jquery/jquery.min.js')}}"></script>
@@ -27,16 +28,28 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('main.index')}}">Блог</a>
                     </li>
-
+                    @auth()
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('admin.index')}}">Админ панель</a>
                     </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('personal.index')}}">Личный кабинет</a>
+                        </li>
+                    @endauth
 
 
                 </ul>
                 <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item">
+                        @guest()
                         <a class="btn btn-dark ml-5" href="{{route('home')}}">Авторизация</a>
+                        @endguest
+                        @auth()
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <input type="submit" class="btn btn-dark ml-5" value="Выйти">
+                                </form>
+                            @endauth
                     </li>
                 </ul>
             </div>

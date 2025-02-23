@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Админ панель</h1>
+                        <h1 class="m-0">Категории</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -41,9 +41,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Категория</th>
-                                    <th></th>
-                                    <th>Действия</th>
-                                    <th></th>
+                                    <th colspan="3">Действия</th>
 
 
                                 </tr>
@@ -60,7 +58,7 @@
                                         <form action="{{ route('admin.category.delete', $category->id) }}" method="post">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit" value="Delete" class="btn-outline-primary border-0"><i class="fa-solid fa-trash"></i></button>
+                                            <button type="submit" value="Delete" class="btn-outline-primary border-0 bg-transparent text-danger"><i class="fa-solid fa-trash"></i></button>
                                         </form>
                                         </td>
 

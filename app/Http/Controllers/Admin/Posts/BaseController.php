@@ -5,17 +5,16 @@ namespace App\Http\Controllers\Admin\Posts;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Service\PostService;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
-class CreateController extends Controller
+class BaseController extends Controller
 {
-    public function __invoke()
-    {
-        $categories = Category::all();
+    public $service;
 
-        $tags = Tag::all();
-
-        return view('admin.posts.create', compact('categories', 'tags'));
+    public function __construct(PostService $service) {
+        $this->service = $service;
     }
+
 }

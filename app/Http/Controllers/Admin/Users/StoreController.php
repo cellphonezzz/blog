@@ -1,18 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Categories;
+namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Categories\StoreRequest;
+use App\Http\Requests\Admin\Users\StoreRequest;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class StoreController extends Controller
 {
     public function __invoke(StoreRequest $request)
     {
         $data = $request->validated();
-        Category::create($data);
-        return redirect()->route('admin.category.index');
+        $data['password'] = Hash::make($data['password']);
+        User::firstOrCreate(['email' => $data['email']], $data);
+        return redirect()->route('admin.user.index');
     }
 }
